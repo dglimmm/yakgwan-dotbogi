@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: terms-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: terms-app
+  template:
+    metadata:
+      labels:
+        app: terms-app
+    spec:
+      containers:
+        - name: terms-app
+          image: donggeonee/terms-app:v1
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: terms-app-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: terms-app-service
+spec:
+  type: NodePort
+  selector:
+    app: terms-app
+  ports:
+    - port: 80
+      targetPort: 3000
+      nodePort: 30080
