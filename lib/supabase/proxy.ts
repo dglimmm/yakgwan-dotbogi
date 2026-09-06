@@ -47,15 +47,18 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
 
-  if (
-    request.nextUrl.pathname !== "/" &&
-    !user &&
-    !request.nextUrl.pathname.startsWith("/login") &&
-    !request.nextUrl.pathname.startsWith("/auth")
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
+  // PRD 기준 로그인 필요 경로: 말벗 챗봇(/chat), 마이페이지(/mypage), 구독 결제(/subscribe).
+  // 그 외 경로(홈, 두뇌 건강 퀴즈, 두뇌 게임 등)는 비로그인으로 접근 가능해야 한다.
+  const PROTECTED_PATH_PREFIXES = ["/chat", "/mypage", "/subscribe"];
+  const isProtectedPath = PROTECTED_PATH_PREFIXES.some((prefix) =>
+    request.nextUrl.pathname.startsWith(prefix),
+  );
+
+  if (isProtectedPath && !user) {
+    // no user, redirect to login and remember where they were headed
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
+    url.searchParams.set("redirect", request.nextUrl.pathname);
     return NextResponse.redirect(url);
   }
 
