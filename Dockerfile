@@ -2,7 +2,7 @@
 # 1단계(builder): Next.js 프로젝트를 "빌드"만 하는 단계
 #   - 여기서 만든 결과물 중 필요한 것만 2단계로 복사해감
 # ─────────────────────────────────────────────
-FROM node:20-alpine AS builder
+FROM node:22-bookworm-slim AS builder
 WORKDIR /app
 
 # package.json만 먼저 복사해서 의존성 설치 (소스코드 바뀔 때마다 npm install 다시 안 하려는 캐싱 트릭)
@@ -23,7 +23,7 @@ RUN npm run build
 # 2단계(runner): 실제로 서버에서 "실행"만 담당하는 단계
 #   - builder 단계의 결과물 중 꼭 필요한 파일만 가져옴 (이미지 용량이 훨씬 작아짐)
 # ─────────────────────────────────────────────
-FROM node:20-alpine AS runner
+FROM node:22-bookworm-slim AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
