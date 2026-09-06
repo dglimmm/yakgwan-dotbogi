@@ -1,109 +1,74 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# 손주야놀자
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+손주가 놀아주듯 매일 챙겨주는 서비스를 목표로, 비로그인으로도 즐길 수 있는 두뇌 건강 퀴즈·두뇌 게임·건강 상식·인기 유튜브 랭킹·오늘의 날씨운세를 한 곳에 모으고, 그 위에 AI 말벗 잡담 챗봇을 더해 재방문을 유도하는 서비스입니다.
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## 🎯 프로젝트 개요
 
-## Features
+- **목적**: 비로그인 콘텐츠 허브 + AI 말벗 챗봇으로 60대 이상 고령층의 일상적인 재방문을 유도
+- **사용자**: 60대 이상 고령층 중 스마트폰/PC로 간단한 웹 서비스를 이용할 수 있는 사용자
+- **로그인 정책**: 홈 페이지의 두뇌 건강 퀴즈·두뇌 게임·건강 상식·유튜브 랭킹·날씨운세는 비로그인으로 즉시 이용 가능하고, AI 말벗 챗봇은 이용량 추적과 구독 결제를 위해 로그인이 필요합니다.
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Proxy
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+> 본 프로젝트는 기존 "약관 돋보기"(보험약관 요약 서비스) 코드베이스를 재활용해 시작했습니다. 해당 아이디어는 보험업법상 리스크로 폐기되었고, 현재 컨셉으로 완전히 대체되었습니다.
 
-## Demo
+## 📱 주요 페이지
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+1. **홈 페이지** — 비로그인 컨텐츠 허브(두뇌 건강 퀴즈 / 두뇌 게임 / 건강 상식 / 유튜브 랭킹 / 날씨·운세)
+2. **두뇌 건강 퀴즈 페이지 / 퀴즈 플레이 페이지 / 퀴즈 결과 페이지** — 노래 맞추기·상식 퀴즈·기억력 게임, 결과에 AI 격려 코멘트 제공
+3. **두뇌 게임 페이지 / 두뇌 게임 플레이 페이지** — 카드 매칭(그림 짝맞추기), 숫자 순서 맞추기(슐테 표)
+4. **말벗 챗봇 페이지** — 날씨·운세 인사와 함께하는 AI 잡담 대화(로그인 필요, 단계형 이용 제한)
+5. **로그인 / 회원가입 페이지** — 기존 Supabase Auth 화면 재사용
+6. **마이페이지** — 접근성 설정(글자 크기/고대비 모드), 구독·챗봇 이용 현황 확인
+7. **구독 결제 페이지** — 챗봇 무제한 이용권 구독/해지
 
-## Deploy to Vercel
+## ⚡ 핵심 기능
 
-Vercel deployment will guide you through creating a Supabase account and project.
+- 두뇌 건강 퀴즈 및 두뇌 게임 플레이/채점
+- 하루 1회 배치 생성되는 건강 상식 카드(참고용 안내, 단정적 진단/처방 표현 금지)
+- YouTube Data API v3 기반 어르신 인기 유튜브 시청 순위(배치 캐싱)
+- 오늘의 날씨·운세 공용 콘텐츠
+- AI 말벗 챗봇 대화 및 단계형 이용 제한(1회차 무료 → 광고 시청 → 월 990원 구독)
+- 기본 인증(Supabase Auth 재사용), 접근성 설정(글자 크기/고대비 모드)
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+## ♿ 접근성 하한선
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+본문 16pt 이상(핵심 정보 20pt 이상), 색상 대비 최소 7:1, 터치 영역 44x44px 이상, 아이콘 단독 사용 금지(텍스트 라벨 병기) 등 고령 사용자를 위한 접근성 기준을 타협 없이 적용합니다. 자세한 기준은 [docs/PRD.md](./docs/PRD.md)를 참고하세요.
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+## 🛠️ 기술 스택
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+- **Framework**: Next.js (App Router)
+- **Runtime**: React 19
+- **Language**: TypeScript
+- **Styling**: TailwindCSS + shadcn/ui + Radix UI
+- **Backend/Auth/DB**: Supabase (Auth, PostgreSQL)
+- **AI**: Claude API(Anthropic) — 말벗 챗봇, 퀴즈 격려 코멘트, 공용 배치 콘텐츠 생성
+- **외부 API**: YouTube Data API v3
+- **배포**: Docker → Docker Hub → 오라클 클라우드 k3s (기존 CI/CD 파이프라인 재사용)
 
-## Clone and run locally
+## 🚀 시작하기
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+```bash
+# 의존성 설치
+npm install
 
-2. Create a Next.js app using the Supabase Starter template npx command
+# 개발 서버 실행
+npm run dev
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+# 빌드
+npm run build
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+# 린트
+npm run lint
+```
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
+`.env.local`에 Supabase 프로젝트의 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`가 설정되어 있어야 합니다.
 
-3. Use `cd` to change into the app's directory
+## 📋 개발 상태
 
-   ```bash
-   cd with-supabase-app
-   ```
+- ✅ Supabase Auth 기반 인증 화면(로그인/회원가입/비밀번호 찾기/변경) 재사용 준비 완료
+- ✅ 스타터킷 데모/튜토리얼 코드 정리 완료
+- ⏳ PRD 기반 홈 페이지(콘텐츠 허브), 퀴즈/게임, 말벗 챗봇, 구독 결제 등 핵심 기능 구현 예정
 
-4. Rename `.env.example` to `.env.local` and update the following:
+## 📖 문서
 
-  ```env
-  NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
-  ```
-  > [!NOTE]
-  > This example uses `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, which refers to Supabase's new **publishable** key format.
-  > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
-  > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
-
-  Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
-
-5. You can now run the Next.js local development server:
-
-   ```bash
-   npm run dev
-   ```
-
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
-
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
-
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
-
-## Feedback and issues
-
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
-
-## More Supabase examples
-
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+- [PRD 문서](./docs/PRD.md) — 상세 요구사항
+- [개발 가이드](./CLAUDE.md) — 개발 지침
